@@ -7,8 +7,8 @@ const CharacterCard = () => {
       <div className="card-header">
         <div className="avatar"></div>
         <div className="card-title">
-          <h1>Character Name</h1>
-          <h2>Subtitle</h2>
+          <h1>Clark Kent</h1>
+          <h2>Definitely NOT Superman</h2>
         </div>
       </div>
       <div className="card-body">
