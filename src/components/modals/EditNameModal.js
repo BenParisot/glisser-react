@@ -4,14 +4,15 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
+import Fade from "@material-ui/core/Fade";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    position: 'fixed',
-    top: '200px',
-    left: '35%',
-    zIndex: '100',
-    background: 'white',
+    position: "fixed",
+    top: "200px",
+    left: "35%",
+    zIndex: "100",
+    background: "white",
     border: "1px solid lightgrey",
     margin: theme.spacing(1),
     width: "35ch",
@@ -42,38 +43,43 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const EditNameModal = () => {
+const EditNameModal = ({ isOpen, handleOpen }) => {
   const classes = useStyles();
   return (
-    <Container className={classes.container} fixed>
-      <div className={classes.modalHeader}>
-        <h3 className={classes.title}>Edit Your Details:</h3>
-        <AiOutlineCloseCircle className={classes.closeIcon} />
-      </div>
-      <form className={classes.form} autoComplete="off">
-        <TextField
-          className={classes.textField}
-          id="firstName"
-          label="First Name"
-          variant="filled"
-        />
-        <TextField
-          className={classes.textField}
-          id="lastName"
-          label="Last Name"
-          variant="filled"
-        />
-        <TextField
-          className={classes.textField}
-          id="subtitle"
-          label="Subtitle"
-          variant="filled"
-        />
-        <Button variant="contained" color="primary">
-          Save
-        </Button>
-      </form>
-    </Container>
+    <Fade in={isOpen}>
+      <Container className={classes.container} fixed>
+        <div className={classes.modalHeader}>
+          <h3 className={classes.title}>Edit Your Details:</h3>
+          <AiOutlineCloseCircle
+            onClick={handleOpen}
+            className={classes.closeIcon}
+          />
+        </div>
+        <form className={classes.form} autoComplete="off">
+          <TextField
+            className={classes.textField}
+            id="firstName"
+            label="First Name"
+            variant="filled"
+          />
+          <TextField
+            className={classes.textField}
+            id="lastName"
+            label="Last Name"
+            variant="filled"
+          />
+          <TextField
+            className={classes.textField}
+            id="subtitle"
+            label="Subtitle"
+            variant="filled"
+          />
+          <Button variant="contained" color="primary">
+            Save
+          </Button>
+        </form>
+      </Container>
+    </Fade>
   );
 };
 

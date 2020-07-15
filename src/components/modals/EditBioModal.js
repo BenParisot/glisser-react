@@ -45,8 +45,7 @@ const useStyles = makeStyles((theme) => ({
 
 const EditBioModal = ({ isOpen, handleOpen }) => {
   const classes = useStyles();
-  console.log("is open", isOpen);
-
+  console.log('isOpen', isOpen)
   return (
     <Fade in={isOpen}>
       <Container className={classes.container} fixed>
@@ -64,7 +63,7 @@ const EditBioModal = ({ isOpen, handleOpen }) => {
             variant="filled"
             className={classes.textField}
           />
-          <Button variant="contained" color="primary" onClick={handleOpen}>
+          <Button variant="contained" color="primary">
             Save
           </Button>
         </form>
