@@ -7,6 +7,11 @@ import Container from "@material-ui/core/Container";
 
 const useStyles = makeStyles((theme) => ({
   container: {
+    position: 'fixed',
+    top: '200px',
+    left: '35%',
+    zIndex: '100',
+    background: 'white',
     border: "1px solid lightgrey",
     margin: theme.spacing(1),
     width: "35ch",
