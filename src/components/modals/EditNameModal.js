@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import Fade from "@material-ui/core/Fade";
-
+import { CharacterContext } from "../../CharacterContext";
 const useStyles = makeStyles((theme) => ({
   container: {
     position: "fixed",
@@ -50,20 +50,24 @@ const EditNameModal = ({ character, isOpen, handleOpen, handleSave }) => {
     lastName: character.lastName,
     subtitle: character.subtitle,
     bio: character.bio,
-  })
+  });
+
+  const { updateCharacter, isNameOpen, setIsNameOpen } = useContext(CharacterContext);
+  // console.log('character', characterContext)
 
   const handleChange = (e) => {
     const targetKey = e.target.id;
-    setFormValues({...formValues, [targetKey]: e.target.value })
-  }
+    setFormValues({ ...formValues, [targetKey]: e.target.value });
+  };
+
 
   return (
-    <Fade in={isOpen}>
+    <Fade in={isNameOpen}>
       <Container className={classes.container} fixed>
         <div className={classes.modalHeader}>
           <h3 className={classes.title}>Edit Your Details:</h3>
           <AiOutlineCloseCircle
-            onClick={handleOpen}
+            onClick={() => setIsNameOpen(!isNameOpen)}
             className={classes.closeIcon}
           />
         </div>
@@ -89,7 +93,11 @@ const EditNameModal = ({ character, isOpen, handleOpen, handleSave }) => {
             variant="filled"
             onChange={handleChange}
           />
-          <Button onClick={() => handleSave(formValues)} variant="contained" color="primary">
+          <Button
+            onClick={() => updateCharacter(formValues)}
+            variant="contained"
+            color="primary"
+          >
             Save
           </Button>
         </form>

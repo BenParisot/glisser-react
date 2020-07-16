@@ -3,6 +3,7 @@ import "./App.css";
 import CharacterCard from "./components/characters/CharacterCard";
 import EditBioModal from "./components/modals/EditBioModal";
 import EditNameModal from "./components/modals/EditNameModal";
+import CharacterContextProvider from "./CharacterContext";
 
 function App() {
   const [characterDetails, setCharacterDetails] = useState({
@@ -31,33 +32,35 @@ function App() {
   };
 
   const handleBioSave = (newBio) => {
-    setCharacterBio({ ...newBio })
-    setIsBioOpen(!isBioOpen)
-  }
+    setCharacterBio({ ...newBio });
+    setIsBioOpen(!isBioOpen);
+  };
 
   return (
-    <div className="App">
-      <CharacterCard
-        character={characterDetails}
-        characterBio={characterBio}
-        handleNameOpen={handleNameOpen}
-        handleBioOpen={handleBioOpen}
-        isBioOpen={isBioOpen}
-        isNameOpen={isNameOpen}
-      />
-      <EditNameModal
-        character={characterDetails}
-        handleSave={handleNameSave}
-        handleOpen={handleNameOpen}
-        isOpen={isNameOpen}
-      />
-      <EditBioModal
-        bio={characterBio}
-        handleSave={handleBioSave}
-        handleOpen={handleBioOpen}
-        isOpen={isBioOpen}
-      />
-    </div>
+    <CharacterContextProvider>
+      <div className="App">
+        <CharacterCard
+          character={characterDetails}
+          characterBio={characterBio}
+          handleNameOpen={handleNameOpen}
+          handleBioOpen={handleBioOpen}
+          isBioOpen={isBioOpen}
+          isNameOpen={isNameOpen}
+        />
+        <EditNameModal
+          character={characterDetails}
+          handleSave={handleNameSave}
+          handleOpen={handleNameOpen}
+          isOpen={isNameOpen}
+        />
+        <EditBioModal
+          bio={characterBio}
+          handleSave={handleBioSave}
+          handleOpen={handleBioOpen}
+          isOpen={isBioOpen}
+        />
+      </div>
+    </CharacterContextProvider>
   );
 }
 

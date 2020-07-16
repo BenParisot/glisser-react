@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import Fade from "@material-ui/core/Fade";
-
+import { CharacterContext } from "../../CharacterContext";
 const useStyles = makeStyles((theme) => ({
   container: {
     position: "fixed",
@@ -47,17 +47,21 @@ const EditBioModal = ({ bio, isOpen, handleOpen, handleSave }) => {
   const classes = useStyles();
   const [formValues, setFormValues] = useState({
     bio: bio.bio,
-  })
+  });
+  const { isBioOpen, setIsBioOpen } = useContext(CharacterContext);
 
   const handleChange = (e) => {
-    setFormValues({ bio: e.target.value})
-  }
+    setFormValues({ bio: e.target.value });
+  };
   return (
-    <Fade in={isOpen}>
+    <Fade in={isBioOpen}>
       <Container className={classes.container} fixed>
         <div className={classes.modalHeader}>
           <h3 className={classes.title}>Edit Your Bio:</h3>
-          <AiOutlineCloseCircle onClick={handleOpen} className={classes.closeIcon} />
+          <AiOutlineCloseCircle
+            onClick={() => setIsBioOpen(!isBioOpen)}
+            className={classes.closeIcon}
+          />
         </div>
         <form className={classes.form} autoComplete="off">
           <TextField
@@ -70,7 +74,12 @@ const EditBioModal = ({ bio, isOpen, handleOpen, handleSave }) => {
             className={classes.textField}
             onChange={handleChange}
           />
-          <Button name="bio" onClick={() => handleSave(formValues)} variant="contained" color="primary">
+          <Button
+            name="bio"
+            onClick={() => handleSave(formValues)}
+            variant="contained"
+            color="primary"
+          >
             Save
           </Button>
         </form>
