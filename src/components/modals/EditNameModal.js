@@ -43,8 +43,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const EditNameModal = ({ character, isOpen, handleOpen, handleSave }) => {
+const EditNameModal = () => {
   const classes = useStyles();
+  const { character, updateCharacter, isNameOpen, setIsNameOpen } = useContext(CharacterContext);
+
   const [formValues, setFormValues] = useState({
     firstName: character.firstName,
     lastName: character.lastName,
@@ -52,14 +54,9 @@ const EditNameModal = ({ character, isOpen, handleOpen, handleSave }) => {
     bio: character.bio,
   });
 
-  const { updateCharacter, isNameOpen, setIsNameOpen } = useContext(CharacterContext);
-  // console.log('character', characterContext)
-
   const handleChange = (e) => {
-    const targetKey = e.target.id;
-    setFormValues({ ...formValues, [targetKey]: e.target.value });
+    setFormValues({ ...formValues, [e.target.id]: e.target.value });
   };
-
 
   return (
     <Fade in={isNameOpen}>

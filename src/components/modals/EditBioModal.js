@@ -43,16 +43,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const EditBioModal = ({ bio, isOpen, handleOpen, handleSave }) => {
+const EditBioModal = () => {
   const classes = useStyles();
+  const { isBioOpen, setIsBioOpen, updateCharacter, character } = useContext(CharacterContext);
+
   const [formValues, setFormValues] = useState({
-    bio: bio.bio,
+    bio: character.bio,
   });
-  const { isBioOpen, setIsBioOpen } = useContext(CharacterContext);
 
   const handleChange = (e) => {
-    setFormValues({ bio: e.target.value });
+    setFormValues({ ...formValues, bio: e.target.value });
   };
+
   return (
     <Fade in={isBioOpen}>
       <Container className={classes.container} fixed>
@@ -76,7 +78,7 @@ const EditBioModal = ({ bio, isOpen, handleOpen, handleSave }) => {
           />
           <Button
             name="bio"
-            onClick={() => handleSave(formValues)}
+            onClick={() => updateCharacter(formValues, 'bio')}
             variant="contained"
             color="primary"
           >

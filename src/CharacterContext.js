@@ -19,14 +19,24 @@ const CharacterContextProvider = (props) => {
   const [isNameOpen, setIsNameOpen] = useState(false);
   const [isBioOpen, setIsBioOpen] = useState(false);
 
-  const updateCharacter = (newValues) => {
-    console.log("saved!");
-    setCharacter({ ...character, newValues });
-    console.log("character", character);
+  const updateCharacter = (newValues, key) => {
+    setCharacter({ ...character, ...newValues });
+    key === "bio"
+      ? setIsBioOpen(!isBioOpen)
+      : setIsNameOpen(!isNameOpen);
   };
 
   return (
-    <CharacterContext.Provider value={{ character, updateCharacter, isNameOpen, setIsNameOpen, isBioOpen, setIsBioOpen }}>
+    <CharacterContext.Provider
+      value={{
+        character,
+        updateCharacter,
+        isNameOpen,
+        setIsNameOpen,
+        isBioOpen,
+        setIsBioOpen,
+      }}
+    >
       {children}
     </CharacterContext.Provider>
   );
