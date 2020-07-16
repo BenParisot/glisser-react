@@ -41,17 +41,16 @@ const useStyles = makeStyles((theme) => ({
   textField: {
     marginBottom: "25px",
   },
+  button: {
+    backgroundColor: "#fffa8e",
+  },
 }));
 
 const EditModal = () => {
   const classes = useStyles();
-  const {
-    setIsOpen,
-    updateCharacter,
-    character,
-    isOpen,
-    key,
-  } = useContext(CharacterContext);
+  const { setIsOpen, updateCharacter, character, isOpen, key } = useContext(
+    CharacterContext
+  );
 
   const [formValues, setFormValues] = useState({
     firstName: character.firstName,
@@ -126,7 +125,7 @@ const EditModal = () => {
             name="bio"
             onClick={() => updateCharacter(formValues)}
             variant="contained"
-            color="primary"
+            className={classes.button}
           >
             Save
           </Button>
