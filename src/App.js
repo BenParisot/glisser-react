@@ -1,8 +1,7 @@
 import React from "react";
 import "./App.css";
 import CharacterCard from "./components/characters/CharacterCard";
-import EditBioModal from "./components/modals/EditBioModal";
-import EditNameModal from "./components/modals/EditNameModal";
+import EditModal from "./components/modals/EditModal";
 import CharacterContextProvider from "./CharacterContext";
 
 function App() {
@@ -10,8 +9,7 @@ function App() {
     <CharacterContextProvider>
       <div className="App">
         <CharacterCard />
-        <EditNameModal />
-        <EditBioModal />
+        <EditModal />
       </div>
     </CharacterContextProvider>
   );

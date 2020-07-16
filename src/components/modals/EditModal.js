@@ -43,29 +43,57 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const EditBioModal = () => {
+const EditModal = () => {
   const classes = useStyles();
-  const { isBioOpen, setIsBioOpen, updateCharacter, character } = useContext(CharacterContext);
+  const {
+    setIsOpen,
+    updateCharacter,
+    character,
+    isOpen,
+    key,
+  } = useContext(CharacterContext);
 
   const [formValues, setFormValues] = useState({
+    firstName: character.firstName,
+    lastName: character.lastName,
+    subtitle: character.subtitle,
     bio: character.bio,
   });
 
   const handleChange = (e) => {
-    setFormValues({ ...formValues, bio: e.target.value });
+    setFormValues({ ...formValues, [e.target.id]: e.target.value });
   };
 
-  return (
-    <Fade in={isBioOpen}>
-      <Container className={classes.container} fixed>
-        <div className={classes.modalHeader}>
-          <h3 className={classes.title}>Edit Your Bio:</h3>
-          <AiOutlineCloseCircle
-            onClick={() => setIsBioOpen(!isBioOpen)}
-            className={classes.closeIcon}
-          />
-        </div>
-        <form className={classes.form} autoComplete="off">
+  const formFields = () => {
+    switch (key) {
+      case "Name":
+        return (
+          <>
+            <TextField
+              className={classes.textField}
+              id="firstName"
+              label={formValues.firstName}
+              variant="filled"
+              onChange={handleChange}
+            />
+            <TextField
+              className={classes.textField}
+              id="lastName"
+              label={formValues.lastName}
+              variant="filled"
+              onChange={handleChange}
+            />
+            <TextField
+              className={classes.textField}
+              id="subtitle"
+              label={formValues.subtitle}
+              variant="filled"
+              onChange={handleChange}
+            />
+          </>
+        );
+      case "Bio":
+        return (
           <TextField
             id="bio"
             label="Bio"
@@ -76,9 +104,27 @@ const EditBioModal = () => {
             className={classes.textField}
             onChange={handleChange}
           />
+        );
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <Fade in={isOpen}>
+      <Container className={classes.container} fixed>
+        <div className={classes.modalHeader}>
+          <h3 className={classes.title}>{`Edit Your ${key}`}</h3>
+          <AiOutlineCloseCircle
+            onClick={() => setIsOpen(!isOpen)}
+            className={classes.closeIcon}
+          />
+        </div>
+        <form className={classes.form} autoComplete="off">
+          {formFields()}
           <Button
             name="bio"
-            onClick={() => updateCharacter(formValues, 'bio')}
+            onClick={() => updateCharacter(formValues)}
             variant="contained"
             color="primary"
           >
@@ -90,4 +136,4 @@ const EditBioModal = () => {
   );
 };
 
-export default EditBioModal;
+export default EditModal;

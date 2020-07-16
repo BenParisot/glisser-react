@@ -5,6 +5,7 @@ export const CharacterContext = createContext({
   lastName: "",
   subtitle: "",
   bio: "",
+  key: "",
 });
 
 const CharacterContextProvider = (props) => {
@@ -16,14 +17,17 @@ const CharacterContextProvider = (props) => {
     bio:
       "I'm a mild-mannered reporter working for the Daily Bugle. There is nothing interesting about me. Nope, nothing out of the ordinary. Just a regular, white collar type of guy. A bit on the scrawny side if I'm being honest, but I've been working out lately to put on a few pounds. When I'm not chasing down a scoop I like to curl up with a good book, take a leisurely stroll, and generally avoid any and all confrontation.",
   });
-  const [isNameOpen, setIsNameOpen] = useState(false);
-  const [isBioOpen, setIsBioOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [key, setKey] = useState("");
 
-  const updateCharacter = (newValues, key) => {
+  const updateCharacter = (newValues) => {
     setCharacter({ ...character, ...newValues });
-    key === "bio"
-      ? setIsBioOpen(!isBioOpen)
-      : setIsNameOpen(!isNameOpen);
+    setIsOpen(!isOpen);
+  };
+
+  const handleModalToggle = (key) => {
+    setKey(key);
+    setIsOpen(!isOpen);
   };
 
   return (
@@ -31,10 +35,10 @@ const CharacterContextProvider = (props) => {
       value={{
         character,
         updateCharacter,
-        isNameOpen,
-        setIsNameOpen,
-        isBioOpen,
-        setIsBioOpen,
+        isOpen,
+        setIsOpen,
+        key,
+        handleModalToggle,
       }}
     >
       {children}
