@@ -5,6 +5,14 @@
   max-width: 60%;
 }
 
+.card-container-dull {
+  display: flex;
+  flex-direction: column;
+  margin: 35px 50px;
+  max-width: 60%;
+  opacity: 25%;
+}
+
 .card-header {
   display: flex;
   align-items: center;

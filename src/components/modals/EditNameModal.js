@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
@@ -43,8 +43,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const EditNameModal = ({ isOpen, handleOpen }) => {
+const EditNameModal = ({ character, isOpen, handleOpen, handleSave }) => {
   const classes = useStyles();
+  const [formValues, setFormValues] = useState({
+    firstName: character.firstName,
+    lastName: character.lastName,
+    subtitle: character.subtitle,
+    bio: character.bio,
+  })
+
+  const handleChange = (e) => {
+    const targetKey = e.target.id;
+    setFormValues({...formValues, [targetKey]: e.target.value })
+  }
+
   return (
     <Fade in={isOpen}>
       <Container className={classes.container} fixed>
@@ -59,22 +71,25 @@ const EditNameModal = ({ isOpen, handleOpen }) => {
           <TextField
             className={classes.textField}
             id="firstName"
-            label="First Name"
+            label={formValues.firstName}
             variant="filled"
+            onChange={handleChange}
           />
           <TextField
             className={classes.textField}
             id="lastName"
-            label="Last Name"
+            label={formValues.lastName}
             variant="filled"
+            onChange={handleChange}
           />
           <TextField
             className={classes.textField}
             id="subtitle"
-            label="Subtitle"
+            label={formValues.subtitle}
             variant="filled"
+            onChange={handleChange}
           />
-          <Button variant="contained" color="primary">
+          <Button onClick={() => handleSave(formValues)} variant="contained" color="primary">
             Save
           </Button>
         </form>

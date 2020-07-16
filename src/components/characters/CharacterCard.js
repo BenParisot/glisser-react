@@ -1,10 +1,11 @@
 import React from "react";
 import "./CharacterCard.scss";
 
-const CharacterCard = ({ character, handleBioOpen, handleNameOpen }) => {
-  const { firstName, lastName, subtitle, bio } = character;
+const CharacterCard = ({ character, characterBio, handleBioOpen, handleNameOpen, isBioOpen, isNameOpen }) => {
+  const { firstName, lastName, subtitle } = character;
+  const { bio } = characterBio;
   return (
-    <div className="card-container">
+    <div className={isNameOpen || isBioOpen ? 'card-container-dull' : 'card-container'}>
       <div className="card-header">
         <div className="avatar"></div>
         <div className="card-title" onClick={handleNameOpen}>

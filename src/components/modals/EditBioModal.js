@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
@@ -43,9 +43,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const EditBioModal = ({ isOpen, handleOpen }) => {
+const EditBioModal = ({ bio, isOpen, handleOpen, handleSave }) => {
   const classes = useStyles();
-  console.log('isOpen', isOpen)
+  const [formValues, setFormValues] = useState({
+    bio: bio.bio,
+  })
+
+  const handleChange = (e) => {
+    setFormValues({ bio: e.target.value})
+  }
   return (
     <Fade in={isOpen}>
       <Container className={classes.container} fixed>
@@ -55,15 +61,16 @@ const EditBioModal = ({ isOpen, handleOpen }) => {
         </div>
         <form className={classes.form} autoComplete="off">
           <TextField
-            id="filled-multiline-static"
+            id="bio"
             label="Bio"
             multiline
             rows={4}
-            defaultValue="Default Value"
+            defaultValue={formValues.bio}
             variant="filled"
             className={classes.textField}
+            onChange={handleChange}
           />
-          <Button variant="contained" color="primary">
+          <Button name="bio" onClick={() => handleSave(formValues)} variant="contained" color="primary">
             Save
           </Button>
         </form>
